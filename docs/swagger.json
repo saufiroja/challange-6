@@ -1,0 +1,285 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "challange binar",
+    "version": "1.0.0",
+    "title": "Binar Academy",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:5000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "player",
+      "description": "Everything about player"
+    }
+  ],
+  "schemes": ["http"],
+  "paths": {
+    "/api/players": {
+      "post": {
+        "tags": ["player"],
+        "summary": "Create player",
+        "description": "Paramater untuk create player",
+        "operationId": "createPlayer",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created player object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createPlayer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/ApiResponse"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/player"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "500": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "get": {
+        "tags": ["player"],
+        "summary": "Find All player",
+        "description": "",
+        "operationId": "findAllPlayer",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "username",
+            "description": "Filter player",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/ApiResponse"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/player"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "500": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/players/{id}": {
+      "get": {
+        "tags": ["player"],
+        "summary": "Get player by id",
+        "description": "",
+        "operationId": "getPlayerById",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Find Player by Id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid username supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["player"],
+        "summary": "Updated Player",
+        "description": "Updater your player",
+        "operationId": "updatePlayer",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id that need to be updated",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Updated user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/player"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["player"],
+        "summary": "Delete player",
+        "description": "Delete your player by id",
+        "operationId": "deletePlayer",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The player that needs to be deleted",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/api/players/exp/{id}": {
+      "post": {
+        "tags": ["player"],
+        "summary": "Get Experience",
+        "description": "Paramater untuk get experience",
+        "operationId": "experience",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Find Player by Id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "createPlayer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "experience": {
+          "type": "integer"
+        },
+        "lvl": {
+          "type": "integer"
+        }
+      }
+    },
+    "player": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "experience": {
+          "type": "integer"
+        },
+        "lvl": {
+          "type": "integer"
+        }
+      }
+    },
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "example": 200
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
