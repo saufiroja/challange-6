@@ -14,26 +14,17 @@ const pages = ["Home", "About", "Blog"];
 
 const NavbarComponents = (props) => {
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl" fixed>
-        <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-          >
+    <AppBar position="relative">
+      <Container maxWidth="xl">
+        <Toolbar>
+          <Typography variant="h6" sx={{ mr: 2 }}>
             {props.title}
           </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <Menu
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
+          <Box>
+            <Menu>
               {pages.map((page) => (
                 <MenuItem key={page}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography>{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>

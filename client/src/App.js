@@ -14,7 +14,7 @@ function App() {
       },
       {
         id: 3,
-        name: "halo",
+        name: "halo12",
         email: "halo@gmail.com",
         experience: 1,
         lvl: 1,

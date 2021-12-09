@@ -5,6 +5,9 @@ import {
   TableBody,
   Container,
   TableContainer,
+  Stack,
+  TextField,
+  Autocomplete,
 } from "@mui/material";
 import React from "react";
 
@@ -34,9 +37,24 @@ const TableComponents = (props) => {
   ];
 
   return (
-    <div className="container">
+    <>
       <Container maxWidth="xl">
-        <TableContainer sx={{ display: "flex", justifyContent: "center" }}>
+        {/* <Stack sx={{ width: "25%" }}>
+          <Autocomplete
+            freeSolo
+            id="name"
+            options={data.map((option) => option.name)}
+            renderInput={(params) => (
+              <TextField {...params} label="Search input" />
+            )}
+          />
+        </Stack> */}
+        <TableContainer
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
           <TableHead>
             <TableRow>
               {headCells.map((headCell) => (
@@ -57,7 +75,7 @@ const TableComponents = (props) => {
           </TableHead>
         </TableContainer>
       </Container>
-    </div>
+    </>
   );
 };
 
