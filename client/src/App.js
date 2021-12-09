@@ -1,7 +1,14 @@
-import { useState } from "react";
-import { NavbarComponents, TableComponents } from "./components/index";
+import React, { useState } from "react";
+import {
+  NavbarComponents,
+  UsersComponents,
+  HomeComponents,
+  CreateUserComponents,
+  NotFoundComponents,
+} from "./components/index";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-function App() {
+const App = () => {
   const [data, setData] = useState({
     title: "Game",
     users: [
@@ -19,21 +26,23 @@ function App() {
         experience: 1,
         lvl: 1,
       },
-      {
-        id: 2,
-        name: "halo",
-        email: "halo@gmail.com",
-        experience: 1,
-        lvl: 1,
-      },
     ],
   });
   return (
-    <div>
+    <BrowserRouter>
       <NavbarComponents title={data.title} />
-      <TableComponents users={data.users} />
-    </div>
+      <Routes>
+        <Route path="/" exact element={<HomeComponents />} />
+        <Route
+          path="/users"
+          exact
+          element={<UsersComponents users={data.users} />}
+        />
+        <Route path="/adduser" exact element={<CreateUserComponents />} />
+        <Route path="*" element={<NotFoundComponents />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
