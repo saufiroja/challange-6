@@ -1,6 +1,7 @@
 import { Button, Container } from "@mui/material";
 import { Box } from "@mui/system";
 import { Link } from "react-router-dom";
+import styles from "./Home.module.css";
 
 import React from "react";
 
@@ -16,11 +17,9 @@ const HomeComponents = () => {
             marginRight: 10,
           }}
         >
-          <Button variant="outlined" sx={{ textDecoration: "none" }}>
-            <Link to="/users" exact>
-              All Users
-            </Link>
-          </Button>
+          <Link className={styles.link} to="/users" exact>
+            <Button variant="contained">All Users</Button>
+          </Link>
         </Box>
         <Box
           sx={{
@@ -28,11 +27,11 @@ const HomeComponents = () => {
             justifyContent: "center",
           }}
         >
-          <Button variant="outlined" sx={{ textDecoration: "none" }}>
-            <Link to="/adduser" exact>
+          <Link className={styles.link} to="/adduser" exact>
+            <Button variant="contained" sx={{ textDecoration: "none" }}>
               Add User
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </Box>
       </Container>
     </>
