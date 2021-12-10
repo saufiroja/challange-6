@@ -1,15 +1,25 @@
+import React, { useState, useEffect } from "react";
 import {
   TableCell,
   TableHead,
   TableRow,
   TableBody,
   Table,
+  Container,
 } from "@mui/material";
-import React from "react";
-import styled from "./Users.module.css";
+import { getUsers } from "../../service/api";
 
 const UsersComponents = (props) => {
-  const data = props.users;
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    getAllUsers();
+  }, []);
+
+  const getAllUsers = async () => {
+    const respones = await getUsers();
+    setUsers(respones.data);
+  };
 
   const headCells = [
     {
@@ -17,8 +27,8 @@ const UsersComponents = (props) => {
       label: "ID",
     },
     {
-      id: "name",
-      label: "Name",
+      id: "username",
+      label: "Username",
     },
     {
       id: "email",
@@ -32,34 +42,32 @@ const UsersComponents = (props) => {
       id: "lvl",
       label: "Level",
     },
-    {
-      label: "Action",
-      formatter: (rowContent, row) => {},
-    },
   ];
 
   return (
     <>
-      <Table className={styled.table}>
-        <TableHead>
-          <TableRow className={styled.thead}>
-            {headCells.map((headCell) => (
-              <TableCell key={headCell.id}>{headCell.label}</TableCell>
-            ))}
-          </TableRow>
+      <Container maxWidth="xl">
+        <Table>
+          <TableHead>
+            <TableRow>
+              {headCells.map((headCell) => (
+                <TableCell key={headCell.id}>{headCell.label}</TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
           <TableBody>
-            {data.map((row) => (
-              <TableRow key={row.id} className={styled.row}>
-                <TableCell>{row.id}</TableCell>
-                <TableCell>{row.name}</TableCell>
-                <TableCell>{row.email}</TableCell>
-                <TableCell>{row.experience}</TableCell>
-                <TableCell>{row.lvl}</TableCell>
+            {users.map((user) => (
+              <TableRow key={user.id}>
+                <TableCell>{user.id}</TableCell>
+                <TableCell>{user.username}</TableCell>
+                <TableCell>{user.email}</TableCell>
+                <TableCell>{user.experience}</TableCell>
+                <TableCell>{user.lvl}</TableCell>
               </TableRow>
             ))}
           </TableBody>
-        </TableHead>
-      </Table>
+        </Table>
+      </Container>
     </>
   );
 };
