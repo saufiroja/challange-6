@@ -47,7 +47,7 @@ const UsersComponents = (props) => {
   return (
     <>
       <Container maxWidth="xl">
-        <Table>
+        <Table sx={{ marginTop: 5 }}>
           <TableHead>
             <TableRow>
               {headCells.map((headCell) => (
