@@ -8,7 +8,7 @@ import {
   Container,
   Button,
 } from "@mui/material";
-import { getUsers } from "../../service/api";
+import { getUsers, deleteUser } from "../../service/api";
 import styles from "./Users.module.css";
 import { Link } from "react-router-dom";
 
@@ -19,8 +19,13 @@ const UsersComponents = (props) => {
     getAllUsers();
   }, []);
 
+  const deleteUserId = async (id) => {
+    await deleteUser(id);
+    getAllUsers();
+  };
+
   const getAllUsers = async () => {
-    const respones = await getUsers();
+    let respones = await getUsers();
     setUsers(respones.data);
   };
 
@@ -79,7 +84,11 @@ const UsersComponents = (props) => {
                   >
                     Edit
                   </Button>
-                  <Button className={styles.delete} variant="contained">
+                  <Button
+                    className={styles.delete}
+                    variant="contained"
+                    onClick={() => deleteUserId(user.id)}
+                  >
                     Delete
                   </Button>
                 </TableCell>
