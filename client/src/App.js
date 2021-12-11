@@ -5,6 +5,7 @@ import {
   HomeComponents,
   CreateUserComponents,
   NotFoundComponents,
+  EditUserComponents,
 } from "./components/index";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -13,13 +14,10 @@ const App = () => {
     <BrowserRouter>
       <NavbarComponents />
       <Routes>
-        <Route path="/" exact="true" element={<HomeComponents />} />
-        <Route path="/users" exact="true" element={<UsersComponents />} />
-        <Route
-          path="/adduser"
-          exact="true"
-          element={<CreateUserComponents />}
-        />
+        <Route path="/" exact element={<HomeComponents />} />
+        <Route path="/users" exact element={<UsersComponents />} />
+        <Route path="/adduser" exact element={<CreateUserComponents />} />
+        <Route path="/edituser/:id" exact element={<EditUserComponents />} />
         <Route path="*" element={<NotFoundComponents />} />
       </Routes>
     </BrowserRouter>

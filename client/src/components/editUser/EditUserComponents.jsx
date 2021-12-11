@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Container,
@@ -8,8 +8,8 @@ import {
   InputLabel,
   Typography,
 } from "@mui/material";
-import { addUser } from "../../service/api";
-import { useNavigate } from "react-router-dom";
+import { editUser, getUsers } from "../../service/api";
+import { useNavigate, useParams } from "react-router-dom";
 
 const valueUser = {
   username: "",
@@ -18,22 +18,32 @@ const valueUser = {
   lvl: "",
 };
 
-const CreateUserComponents = () => {
+const EditUserComponents = () => {
   const [user, setUser] = useState(valueUser);
   const { username, email, experience, lvl } = user;
   let history = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = async () => {
+    const response = await getUsers(id);
+    setUser(response.data);
+  };
+
+  const editUserDetails = async () => {
+    await editUser(id, user);
+    history("/users");
+  };
 
   const onChangeValue = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const createUser = async () => {
-    await addUser(user);
-    history("/users");
-  };
-
-  const onClickUser = () => {
-    createUser();
+  const onClickSubmit = () => {
+    editUserDetails();
   };
 
   return (
@@ -43,13 +53,15 @@ const CreateUserComponents = () => {
         sx={{ display: "flex", justifyContent: "center" }}
       >
         <FormGroup sx={{ marginTop: 5, width: "50%" }}>
-          <Typography variant="h6">Create User</Typography>
+          <Typography variant="h6">Edit User</Typography>
           <FormControl sx={{ marginTop: 2 }}>
             <InputLabel>Username</InputLabel>
             <Input
               onChange={(e) => onChangeValue(e)}
               name="username"
               value={username}
+              id="my-input"
+              aria-describedby="my-helper-text"
             />
           </FormControl>
           <FormControl sx={{ marginTop: 2 }}>
@@ -58,6 +70,8 @@ const CreateUserComponents = () => {
               onChange={(e) => onChangeValue(e)}
               name="email"
               value={email}
+              id="my-input"
+              aria-describedby="my-helper-text"
             />
           </FormControl>
           <FormControl sx={{ marginTop: 2 }}>
@@ -66,15 +80,23 @@ const CreateUserComponents = () => {
               onChange={(e) => onChangeValue(e)}
               name="experience"
               value={experience}
+              id="my-input"
+              aria-describedby="my-helper-text"
             />
           </FormControl>
           <FormControl sx={{ marginTop: 2 }}>
             <InputLabel>Level</InputLabel>
-            <Input onChange={(e) => onChangeValue(e)} name="lvl" value={lvl} />
+            <Input
+              onChange={(e) => onChangeValue(e)}
+              name="lvl"
+              value={lvl}
+              id="my-input"
+              aria-describedby="my-helper-text"
+            />
           </FormControl>
           <Button
             variant="contained"
-            onClick={onClickUser}
+            onClick={onClickSubmit}
             sx={{ marginTop: 5 }}
           >
             Submit
@@ -84,4 +106,4 @@ const CreateUserComponents = () => {
     </>
   );
 };
-export default CreateUserComponents;
+export default EditUserComponents;

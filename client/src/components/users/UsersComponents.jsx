@@ -6,8 +6,11 @@ import {
   TableBody,
   Table,
   Container,
+  Button,
 } from "@mui/material";
 import { getUsers } from "../../service/api";
+import styles from "./Users.module.css";
+import { Link } from "react-router-dom";
 
 const UsersComponents = (props) => {
   const [users, setUsers] = useState([]);
@@ -42,6 +45,9 @@ const UsersComponents = (props) => {
       id: "lvl",
       label: "Level",
     },
+    {
+      label: "Action",
+    },
   ];
 
   return (
@@ -63,6 +69,20 @@ const UsersComponents = (props) => {
                 <TableCell>{user.email}</TableCell>
                 <TableCell>{user.experience}</TableCell>
                 <TableCell>{user.lvl}</TableCell>
+                <TableCell>
+                  <Button
+                    className={styles.edit}
+                    variant="contained"
+                    sx={{ marginRight: 3 }}
+                    LinkComponent={Link}
+                    to={`/edituser/${user.id}`}
+                  >
+                    Edit
+                  </Button>
+                  <Button className={styles.delete} variant="contained">
+                    Delete
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
