@@ -7,6 +7,8 @@ import {
   Table,
   Container,
   Button,
+  Stack,
+  TextField,
 } from "@mui/material";
 import { getUsers, deleteUser } from "../../service/api";
 import styles from "./Users.module.css";
@@ -14,6 +16,20 @@ import { Link } from "react-router-dom";
 
 const UsersComponents = (props) => {
   const [users, setUsers] = useState([]);
+  const [search, setSearch] = useState("");
+
+  const searchField = users.filter(
+    (data) =>
+      data.username.toLowerCase().includes(search.toLowerCase()) ||
+      data.email.toLowerCase().includes(search.toLowerCase()) ||
+      data.experience.toLowerCase().includes(search.toLowerCase()) ||
+      data.lvl.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const onSearch = (e) => {
+    console.log(searchField);
+    setSearch(e.target.value);
+  };
 
   useEffect(() => {
     getAllUsers();
@@ -58,6 +74,10 @@ const UsersComponents = (props) => {
   return (
     <>
       <Container maxWidth="xl">
+        <Stack spacing={2} sx={{ width: 300, marginTop: 2 }}>
+          <TextField label="Search input" type="search" onChange={onSearch} />
+          {}
+        </Stack>
         <Table sx={{ marginTop: 5 }}>
           <TableHead>
             <TableRow>
