@@ -26,16 +26,17 @@ const EditUserComponents = () => {
 
   useEffect(() => {
     loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const loadData = async () => {
-    const response = await getUsers(id);
-    setUser(response.data);
-  };
 
   const editUserDetails = async () => {
     await editUser(id, user);
     history("/users");
+  };
+
+  const loadData = async () => {
+    const response = await getUsers(id);
+    setUser(response.data);
   };
 
   const onChangeValue = (e) => {
